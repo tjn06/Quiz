@@ -11,7 +11,7 @@ using Questions.API.Data;
 namespace Questions.API.Migrations
 {
     [DbContext(typeof(NZWalksDBContext))]
-    [Migration("20221223230033_Initial")]
+    [Migration("20221227213244_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,6 +49,28 @@ namespace Questions.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Regions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("4467c0fa-6be8-4237-a313-2e6e8f98a8e5"),
+                            Area = 22.0,
+                            Code = "AUCK",
+                            Lat = 33.0,
+                            Long = 44.0,
+                            Name = "Auckland",
+                            Population = 45.0
+                        },
+                        new
+                        {
+                            Id = new Guid("22fda770-9b6f-451f-9ca7-d884436f0acd"),
+                            Area = 34.0,
+                            Code = "NEW",
+                            Lat = 22.0,
+                            Long = 11.0,
+                            Name = "Newland",
+                            Population = 77.0
+                        });
                 });
 
             modelBuilder.Entity("Questions.API.Models.Domain.Walk", b =>
@@ -77,6 +99,24 @@ namespace Questions.API.Migrations
                     b.HasIndex("WalkDifficultyId");
 
                     b.ToTable("Walks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("dc4757c7-b0e9-4086-8783-6ce945c0efcc"),
+                            Length = 3.5,
+                            Name = "One Three Hill Walk",
+                            RegionId = new Guid("4467c0fa-6be8-4237-a313-2e6e8f98a8e5"),
+                            WalkDifficultyId = new Guid("b9bf707c-89fb-45f2-88af-9a2482deb9d9")
+                        },
+                        new
+                        {
+                            Id = new Guid("3cf773d7-b72b-4b16-a09a-99623bb03c3b"),
+                            Length = 3.5,
+                            Name = "Rainbow Mou",
+                            RegionId = new Guid("22fda770-9b6f-451f-9ca7-d884436f0acd"),
+                            WalkDifficultyId = new Guid("40ffdbe8-cf26-4c71-94cb-ec184b78793d")
+                        });
                 });
 
             modelBuilder.Entity("Questions.API.Models.Domain.WalkDifficulty", b =>
@@ -92,6 +132,18 @@ namespace Questions.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WalkDifficulty");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b9bf707c-89fb-45f2-88af-9a2482deb9d9"),
+                            Code = "Code 1"
+                        },
+                        new
+                        {
+                            Id = new Guid("40ffdbe8-cf26-4c71-94cb-ec184b78793d"),
+                            Code = "Code 2"
+                        });
                 });
 
             modelBuilder.Entity("Questions.API.Models.Domain.Walk", b =>

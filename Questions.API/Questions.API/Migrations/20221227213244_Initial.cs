@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Questions.API.Migrations
 {
     /// <inheritdoc />
@@ -65,6 +67,33 @@ namespace Questions.API.Migrations
                         principalTable: "WalkDifficulty",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Regions",
+                columns: new[] { "Id", "Area", "Code", "Lat", "Long", "Name", "Population" },
+                values: new object[,]
+                {
+                    { new Guid("22fda770-9b6f-451f-9ca7-d884436f0acd"), 34.0, "NEW", 22.0, 11.0, "Newland", 77.0 },
+                    { new Guid("4467c0fa-6be8-4237-a313-2e6e8f98a8e5"), 22.0, "AUCK", 33.0, 44.0, "Auckland", 45.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "WalkDifficulty",
+                columns: new[] { "Id", "Code" },
+                values: new object[,]
+                {
+                    { new Guid("40ffdbe8-cf26-4c71-94cb-ec184b78793d"), "Code 2" },
+                    { new Guid("b9bf707c-89fb-45f2-88af-9a2482deb9d9"), "Code 1" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Walks",
+                columns: new[] { "Id", "Length", "Name", "RegionId", "WalkDifficultyId" },
+                values: new object[,]
+                {
+                    { new Guid("3cf773d7-b72b-4b16-a09a-99623bb03c3b"), 3.5, "Rainbow Mou", new Guid("22fda770-9b6f-451f-9ca7-d884436f0acd"), new Guid("40ffdbe8-cf26-4c71-94cb-ec184b78793d") },
+                    { new Guid("dc4757c7-b0e9-4086-8783-6ce945c0efcc"), 3.5, "One Three Hill Walk", new Guid("4467c0fa-6be8-4237-a313-2e6e8f98a8e5"), new Guid("b9bf707c-89fb-45f2-88af-9a2482deb9d9") }
                 });
 
             migrationBuilder.CreateIndex(

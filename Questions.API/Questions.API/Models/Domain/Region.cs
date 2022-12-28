@@ -14,6 +14,11 @@ namespace Questions.API.Models.Domain
 		//Navigation Property
 		public IEnumerable<Walk> Walks { get; set; }
 
+		//public Region()
+		//{
+  //          Id = Guid.NewGuid();
+  //      }
+
     }
 }
 
