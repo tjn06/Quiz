@@ -98,5 +98,20 @@ namespace Questions.API.Controllers
             return Ok(walkDifficultyDTO);
         }
 
+        [HttpDelete]
+        [Route("{id:guid}")]
+
+        public async Task<IActionResult> DeleteWalkDifficulty(Guid id)
+        {
+            var walkDifficultyDomain = await walkDifficultyRepository.DeleteAsync(id);
+            if(walkDifficultyDomain == null)
+            {
+                return NotFound();
+            }
+
+            var walkDifficultyDTO = mapper.Map<Models.DTO.WalkDifficulty>(walkDifficultyDomain);
+            return Ok(walkDifficultyDTO);
+        }
+
     }
 }

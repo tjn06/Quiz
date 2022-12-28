@@ -22,6 +22,18 @@ namespace Questions.API.Repositories
             return walkDifficulty;
         }
 
+        public async Task<WalkDifficulty> DeleteAsync(Guid id)
+        {
+            var existingWalkDifficulty = await nZWalksDBContext.WalkDifficulty.FindAsync(id);
+            if (existingWalkDifficulty != null)
+            {
+                nZWalksDBContext.WalkDifficulty.Remove(existingWalkDifficulty);
+                await nZWalksDBContext.SaveChangesAsync();
+                return existingWalkDifficulty;
+            }
+            return null;
+        }
+
         public async Task<IEnumerable<WalkDifficulty>> GetAllAsync()
         {
             return await nZWalksDBContext.WalkDifficulty.ToListAsync();
