@@ -18,7 +18,7 @@ namespace Questions.API.Repositories
         {
             // Assign new ID
             walk.Id = Guid.NewGuid();
-            await nZWalksDbContext.Walks.AddAsync(walk); ;
+            await nZWalksDbContext.Walks.AddAsync(walk);
             await nZWalksDbContext.SaveChangesAsync();
             return walk;
         }
