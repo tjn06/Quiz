@@ -135,7 +135,32 @@ namespace Questions.API.Controllers
 
         }
 
+        private bool ValidateAddWalkAsync(Models.DTO.AddWalkRequest addWalkRequest)
+        {
+            if(addWalkRequest == null)
+            {
+                ModelState.AddModelError(nameof(addWalkRequest),
+                    $"cannot be empty.");
+                return false;
+            }
 
-        
+            if (!string.IsNullOrWhiteSpace(addWalkRequest.Name))
+            {
+                ModelState.AddModelError(nameof(addWalkRequest.Name),
+                    $"{nameof(addWalkRequest.Name)} is required.");
+            }
+
+            if (addWalkRequest.Length > 0)
+            {
+                ModelState.AddModelError(nameof(addWalkRequest.Length),
+                    $"{nameof(addWalkRequest.Name)} should be greater than zero.");
+            }
+
+
+
+
+        }
+
+
     }
 }
