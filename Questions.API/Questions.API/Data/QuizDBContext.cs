@@ -5,8 +5,7 @@ using Questions.API.Models.Domain;
 namespace Questions.API.Data
 {
 
-   
-    public class NZWalksDBContext : DbContext
+    public class QuizDBContext : DbContext
 	{
         readonly Guid question1Id = Guid.NewGuid();
         readonly Guid question2Id = Guid.NewGuid();
@@ -16,16 +15,14 @@ namespace Questions.API.Data
         readonly Guid answer4Id = Guid.NewGuid();
         readonly Guid answer5Id = Guid.NewGuid();
         readonly Guid answer6Id = Guid.NewGuid();
-        readonly Guid diffiCultWalk1Id = Guid.NewGuid();
-        readonly Guid diffiCultWalk2Id = Guid.NewGuid();
 
-        public NZWalksDBContext(DbContextOptions<NZWalksDBContext> options): base(options)
+
+        public QuizDBContext(DbContextOptions<QuizDBContext> options): base(options)
 		{
             
         }
 		public DbSet<Qn> Qns { get; set; }
         public DbSet<Ans> Answers { get; set; }
-        public DbSet<WalkDifficulty> WalkDifficulty { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +30,6 @@ namespace Questions.API.Data
             base.OnModelCreating(modelBuilder);
             CreateQuestionModel(modelBuilder);
             CreateAnswersModel(modelBuilder);
-            CreateWalkDifficulltyModel(modelBuilder);
         }
 
 
@@ -109,27 +105,6 @@ namespace Questions.API.Data
                         QuestionId = question2Id,
                         Answer = "Lionking",
                         IsCorrectAnswer = true,
-                    }
-                );
-            });
-        }
-
-        private void CreateWalkDifficulltyModel(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<WalkDifficulty>(entity =>
-            {
-                entity.HasData(
-                    new WalkDifficulty
-                    {
-                        Id = diffiCultWalk1Id,
-                        Code = "Code 1"
-          
-                    },
-                    new WalkDifficulty
-                    {
-                        Id = diffiCultWalk2Id,
-                        Code = "Code 2"
-
                     }
                 );
             });

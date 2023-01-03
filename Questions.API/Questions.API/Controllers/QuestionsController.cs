@@ -44,14 +44,12 @@ namespace Questions.API.Controllers
         public async Task<IActionResult> GetQuestionAsync(Guid id)
         {
             var question = await questionRepository.GetAsync(id);
-  
             if(question == null)
             {
                 return NotFound();
             }
 
             var questionDTO = mapper.Map<Models.DTO.QnDto>(question);
-
             return Ok(questionDTO);
         }
 
@@ -63,32 +61,10 @@ namespace Questions.API.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
-
-            // Request(DTO) to domain model
-
             var questionDomain = mapper.Map<Models.Domain.Qn>(addQnRequestDto);
-
-            //var question = new Models.Domain.Qn()
-            //{
-            //  Language = addQnRequestDto.Language,
-            //  Question = addQnRequestDto.Question,
-            //  Category = addQnRequestDto.Category,
-            //};
-
-
-            // Pass details to Repository
             questionDomain = await questionRepository.AddAsync(questionDomain);
 
-            // Convert back to DTO
             var questionDTO = mapper.Map<Models.DTO.QnDto>(questionDomain);
-            //var questionDTO = new Models.DTO.QnDto
-            //{
-            //    Id = question.Id,
-            //    Language = addQnRequestDto.Language,
-            //    Question = addQnRequestDto.Question,
-            //    Category = addQnRequestDto.Category,
-            //};
-
             return CreatedAtAction(nameof(GetQuestionAsync), new {id = questionDTO.Id}, questionDTO);
         }
 
@@ -96,26 +72,13 @@ namespace Questions.API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> DeleteQuestionAsync(Guid id)
         {
-            // Get question from database
             var question = await questionRepository.DeleteAsync(id);
-
-            // If null NotFond
             if (question == null)
             {
                 return NotFound();
             }
 
-            // Convert response back to DTO
             var questionDTO = mapper.Map<Models.DTO.QnDto>(question);
-            //var questionDTO = new Models.DTO.QnDto
-            //{
-            //    Id = question.Id,
-            //    Language = question.Language,
-            //    Question = question.Question,
-            //    Category = question.Category,
-            //};
-
-            // Return Ok response
             return Ok(questionDTO);
         }
 
@@ -129,39 +92,16 @@ namespace Questions.API.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
-            // Convert DTO to Domain model
 
             var question = mapper.Map<Models.Domain.Qn>(updateQnRequestDto);
-            //var question = new Models.Domain.Qn()
-            //{
-            //    Language = updateQnRequestDto.Language,
-            //    Question = updateQnRequestDto.Question,
-            //    Category = updateQnRequestDto.Category,
-            //};
 
-            // Update Question using repository
-            //await questionRepository.UpdateAsync(id, question);
             question = await questionRepository.UpdateAsync(id, question);
-
-
-            // If Null then not found
             if(question == null)
             {
                 return NotFound();
             }
 
-            // Convert Domain back to DTO
-
             var questionDTO = mapper.Map<Models.DTO.QnDto>(question);
-            //var questionDTO = new Models.DTO.QnDto
-            //{
-            //    Id = question.Id,
-            //    Language = question.Language,
-            //    Question = question.Question,
-            //    Category = question.Category,
-            //};
-
-            // Return Ok response
             return Ok(questionDTO);
         }
 

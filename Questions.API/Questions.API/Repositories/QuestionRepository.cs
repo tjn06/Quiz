@@ -8,13 +8,13 @@ namespace Questions.API.Repositories
     public class QuestionRepository : IQuestionRepository
     {
         // Use this private property inside method
-        private readonly NZWalksDBContext nZWalksDbContext;
+        private readonly QuizDBContext quizDBContext;
 
 
         // Constructor, injecting DBcontext in the constuctor
-        public QuestionRepository(NZWalksDBContext nZWalksDbContext)
+        public QuestionRepository(QuizDBContext quizDBContext)
         {
-            this.nZWalksDbContext = nZWalksDbContext;
+            this.quizDBContext = quizDBContext;
         }
 
 
@@ -22,29 +22,29 @@ namespace Questions.API.Repositories
         public async Task<Qn> AddAsync(Qn question)
         {
             question.Id = Guid.NewGuid();
-            await nZWalksDbContext.AddAsync(question);
-            await nZWalksDbContext.SaveChangesAsync();
+            await quizDBContext.AddAsync(question);
+            await quizDBContext.SaveChangesAsync();
             return question;
         }
 
         public async Task<Qn> AddTriviaQuestionAsync(Qn question)
         {
-            await nZWalksDbContext.AddAsync(question);
-            await nZWalksDbContext.SaveChangesAsync();
+            await quizDBContext.AddAsync(question);
+            await quizDBContext.SaveChangesAsync();
             return question;
         }
 
         public async Task<Qn?> DeleteAsync(Guid id)
         {
-            var question = await nZWalksDbContext.Qns.FirstOrDefaultAsync(x => x.Id == id);
+            var question = await quizDBContext.Qns.FirstOrDefaultAsync(x => x.Id == id);
 
             if(question == null)
             {
                 return null;
             }
 
-            nZWalksDbContext.Qns.Remove(question);
-            await nZWalksDbContext.SaveChangesAsync();
+            quizDBContext.Qns.Remove(question);
+            await quizDBContext.SaveChangesAsync();
             // Return region if client want to do something with it
             return question;
         }
@@ -53,19 +53,19 @@ namespace Questions.API.Repositories
         //Method to provide all questions from database
         public async Task<IEnumerable<Qn>> GetAllAsync()
         {
-           return await nZWalksDbContext.Qns.ToListAsync();
+           return await quizDBContext.Qns.ToListAsync();
         }
 
 
         public async Task<Qn> GetAsync(Guid id)
         {
-            return await nZWalksDbContext.Qns.FirstOrDefaultAsync(x => x.Id == id);
+            return await quizDBContext.Qns.FirstOrDefaultAsync(x => x.Id == id);
         }
 
 
         public async Task<Qn?> UpdateAsync(Guid id, Qn qn)
         {
-            var existingQuestion = await nZWalksDbContext.Qns.FirstOrDefaultAsync(x => x.Id == id);
+            var existingQuestion = await quizDBContext.Qns.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingQuestion == null)
             {
@@ -75,7 +75,7 @@ namespace Questions.API.Repositories
             existingQuestion.Question = qn.Question;
             existingQuestion.Category = qn.Category;
 
-            await nZWalksDbContext.SaveChangesAsync();
+            await quizDBContext.SaveChangesAsync();
             return existingQuestion;
         }
 

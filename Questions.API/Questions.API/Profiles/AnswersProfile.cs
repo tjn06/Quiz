@@ -5,9 +5,9 @@ using Questions.API.Models.DTO;
 
 namespace Questions.API.Profiles
 {
-	public class QuestionsProfile : Profile
+	public class AnswersProfile : Profile
 	{
-		public QuestionsProfile()
+		public AnswersProfile()
 		{
 			CreateMap<Models.Domain.Ans, Models.DTO.AnsDto>()
 				.ReverseMap();
@@ -19,9 +19,6 @@ namespace Questions.API.Profiles
                 .ReverseMap();
 
             CreateMap<Models.Domain.Ans, Models.DTO.AnsPlayQuizDto>()
-				.ReverseMap();
-
-            CreateMap<Models.Domain.WalkDifficulty, Models.DTO.WalkDifficulty>()
 				.ReverseMap();
         }
 	}

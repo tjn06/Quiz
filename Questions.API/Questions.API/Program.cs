@@ -12,12 +12,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<NZWalksDBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<QuizDBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Dependency injections
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
-builder.Services.AddScoped<IWalkDifficultyRepository, WalkDifficultyRepository>();
 builder.Services.AddScoped<ITriviaRepository, TriviaRepository>();
 builder.Services.AddScoped<IQuizPlayService, QuizPlayService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

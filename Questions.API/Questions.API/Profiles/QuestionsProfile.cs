@@ -3,9 +3,9 @@ using AutoMapper;
 
 namespace Questions.API.Profiles
 {
-	public class QuestionProfile: Profile
+	public class QuestionsProfile: Profile
 	{
-		public QuestionProfile()
+		public QuestionsProfile()
 		{
 			CreateMap<Models.Domain.Qn, Models.DTO.QnDto>()
 				.ReverseMap();
