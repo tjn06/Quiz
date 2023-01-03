@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Questions.API.Controllers;
 using Questions.API.Data;
 using Questions.API.Repositories;
+using Questions.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +15,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NZWalksDBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Dependency injections
-builder.Services.AddScoped<IRegionRepository, RegionRepository>();
-builder.Services.AddScoped<IWalkRepository, WalkRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<IWalkDifficultyRepository, WalkDifficultyRepository>();
+builder.Services.AddScoped<ITriviaRepository, TriviaRepository>();
+builder.Services.AddScoped<IQuizPlayService, QuizPlayService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

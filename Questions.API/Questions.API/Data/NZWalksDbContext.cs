@@ -8,10 +8,14 @@ namespace Questions.API.Data
    
     public class NZWalksDBContext : DbContext
 	{
-        readonly Guid region1Id = Guid.NewGuid();
-        readonly Guid region2Id = Guid.NewGuid();
-        readonly Guid walk1Id = Guid.NewGuid();
-        readonly Guid walk2Id = Guid.NewGuid();
+        readonly Guid question1Id = Guid.NewGuid();
+        readonly Guid question2Id = Guid.NewGuid();
+        readonly Guid answer1Id = Guid.NewGuid();
+        readonly Guid answer2Id = Guid.NewGuid();
+        readonly Guid answer3Id = Guid.NewGuid();
+        readonly Guid answer4Id = Guid.NewGuid();
+        readonly Guid answer5Id = Guid.NewGuid();
+        readonly Guid answer6Id = Guid.NewGuid();
         readonly Guid diffiCultWalk1Id = Guid.NewGuid();
         readonly Guid diffiCultWalk2Id = Guid.NewGuid();
 
@@ -19,74 +23,92 @@ namespace Questions.API.Data
 		{
             
         }
-		public DbSet<Region> Regions { get; set; }
-        public DbSet<Walk> Walks { get; set; }
+		public DbSet<Qn> Qns { get; set; }
+        public DbSet<Ans> Answers { get; set; }
         public DbSet<WalkDifficulty> WalkDifficulty { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
-            CreateRegionsModel(modelBuilder);
-            CreateWalksModel(modelBuilder);
+            CreateQuestionModel(modelBuilder);
+            CreateAnswersModel(modelBuilder);
             CreateWalkDifficulltyModel(modelBuilder);
         }
 
 
-        private void CreateRegionsModel(ModelBuilder modelBuilder)
+        private void CreateQuestionModel(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Region>(entity =>
+            modelBuilder.Entity<Qn>(entity =>
             {
                 entity.HasData(
-                    new Region
+                    new Qn
                     {
-                        Id = region1Id,
-                        Code = "AUCK",
-                        Name = "Auckland",
-                        Area = 22,
-                        Lat = 33,
-                        Long = 44,
-                        Population = 45,
+                        Id = question1Id,
+                        Category = "Sport",
+                        Question = "Best forballplayer?",
+                        Language = "Svenska"
+
                     },
-                    new Region
+                    new Qn
                     {
-                        Id = region2Id,
-                        Code = "NEW",
-                        Name = "Newland",
-                        Area = 34,
-                        Lat = 22,
-                        Long = 11,
-                        Population = 77,
+                        Id = question2Id,
+                        Category = "Movies",
+                        Question = "Best movie?",
+                        Language = "Eng"
+
                     }
                 );
             });
         }
 
 
-        private void CreateWalksModel(ModelBuilder modelBuilder)
+        private void CreateAnswersModel(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Walk>(entity =>
+            modelBuilder.Entity<Ans>(entity =>
             {
                 entity.HasData(
-                    new Walk
+                    new Ans
                     {
-                        Id = walk1Id,
-                        Name = "One Three Hill Walk",
-                        Length = 3.5,
-                        RegionId = region1Id,
-                        WalkDifficultyId = diffiCultWalk1Id,
-                        //Region = null,
-                        //WalkDifficulty = null
+                        Id = answer1Id,
+                        QuestionId = question1Id,
+                        Answer = "Maradona",
+                        IsCorrectAnswer = false
                     },
-                    new Walk
+                    new Ans
                     {
-                        Id = walk2Id,
-                        Name = "Rainbow Mou",
-                        Length = 3.5,
-                        RegionId = region2Id,
-                        WalkDifficultyId = diffiCultWalk2Id,
-                        //Region = null,
-                        //WalkDifficulty = null
+                        Id = answer2Id,
+                        QuestionId = question1Id,
+                        Answer = "Pele",
+                        IsCorrectAnswer = false,
+                    },
+                    new Ans
+                    {
+                        Id = answer3Id,
+                        QuestionId = question1Id,
+                        Answer = "Messi",
+                        IsCorrectAnswer = true
+                    },
+
+                    new Ans
+                    {
+                        Id = answer4Id,
+                        QuestionId = question2Id,
+                        Answer = "Avatar",
+                        IsCorrectAnswer = true,
+                    },
+                    new Ans
+                    {
+                        Id = answer5Id,
+                        QuestionId = question2Id,
+                        Answer = "Titanic",
+                        IsCorrectAnswer = true,
+                    }, new Ans
+                    {
+                        Id = answer6Id,
+                        QuestionId = question2Id,
+                        Answer = "Lionking",
+                        IsCorrectAnswer = true,
                     }
                 );
             });

@@ -40,6 +40,12 @@
     <None Remove="AutoMapper" />
     <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
     <None Remove="Profiles\" />
+    <None Remove="Services\" />
+    <None Remove="Models\DTO\Answer\" />
+    <None Remove="Models\DTO\Question\" />
+    <None Remove="Models\DTO\WalkDifficulty\" />
+    <None Remove="Models\DTO\PlayQuiz\" />
+    <None Remove="Services\IQuizPlayService1cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -48,5 +54,10 @@
     <Folder Include="Repositories\" />
     <Folder Include="Models\DTO\" />
     <Folder Include="Profiles\" />
+    <Folder Include="Services\" />
+    <Folder Include="Models\DTO\Answer\" />
+    <Folder Include="Models\DTO\Question\" />
+    <Folder Include="Models\DTO\WalkDifficulty\" />
+    <Folder Include="Models\DTO\PlayQuiz\" />
   </ItemGroup>
 </Project>
