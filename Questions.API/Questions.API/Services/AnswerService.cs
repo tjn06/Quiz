@@ -32,6 +32,7 @@ namespace Questions.API.Services
         public async Task<AnsDto?> AddAnswerAsync(Models.DTO.AddAnsRequestDto addAnswerRequestDto)
         {
             var answerDomain = _mapper.Map<Models.Entities.Ans>(addAnswerRequestDto);
+            answerDomain.Id = Guid.NewGuid();
             answerDomain = await _answerRepository.AddAsync(answerDomain);
             return (answerDomain == null) ? null : _mapper.Map<Models.DTO.AnsDto>(answerDomain);
         }

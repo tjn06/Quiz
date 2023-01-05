@@ -42,12 +42,10 @@ namespace Questions.API.Repositories
             return question;
         }
 
-
         public async Task<IEnumerable<Qn>> GetAllAsync()
         {
            return await _quizDBContext.Qns.ToListAsync();
         }
-
 
         public async Task<Qn?> GetAsync(Guid id)
         {

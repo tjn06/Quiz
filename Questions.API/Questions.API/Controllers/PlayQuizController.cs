@@ -20,14 +20,12 @@ namespace Questions.API.Controllers
             _quizPlayService = quizPlayService;
         }
 
-
         [HttpGet]
         public async Task<ActionResult<PlayQuizQuestion>> GetPlayQuizQuestionAsync()
         {
             var playQuizQuestion = await _quizPlayService.GetPlayQuizQuestion();
             return playQuizQuestion == null ?  NotFound() : Ok(playQuizQuestion);
         }
-
 
         [HttpPut]
         [Route("{questionId:guid}")]
@@ -37,8 +35,6 @@ namespace Questions.API.Controllers
             var selectedAnswerReply = await _quizPlayService.GetPlayQuizAnswerCorrectionReply(questionId, checkPlayQuizAnsRequest.AnswerId);
             return Ok(selectedAnswerReply);
         }
-
-
 
     }
 }

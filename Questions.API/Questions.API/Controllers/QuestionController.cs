@@ -12,9 +12,6 @@ using Questions.API.Services;
 
 namespace Questions.API.Controllers
 {
-    //[ApiController]
-    //[Route("[controller]")]
-
     [Route("api/v1/[controller]")]
     [ApiExplorerSettings(GroupName = "v1")]
     [ApiController]
@@ -29,9 +26,8 @@ namespace Questions.API.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetAllQuestionAsync()
+        public async Task<ActionResult<List<QnDto>>> GetAllQuestionAsync()
         {
             var allQuestions = await _questionService.GetAllQuestionsAsync();
             return (allQuestions == null) ? NotFound() : Ok(allQuestions);
@@ -40,14 +36,14 @@ namespace Questions.API.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetQuestionAsync")]
-        public async Task<IActionResult> GetQuestionAsync(Guid id)
+        public async Task<ActionResult<QnDto>> GetQuestionAsync(Guid id)
         {
             var question = await _questionService.GetQuestionAsync(id);
             return (question == null) ? NotFound() : Ok(question);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddQuestionAsync(Models.DTO.AddQnRequestDto addQnRequestDto)
+        public async Task<ActionResult<QnDto>> AddQuestionAsync(Models.DTO.AddQnRequestDto addQnRequestDto)
         {
             var addedQuestion = await _questionService.AddQuestionAsync(addQnRequestDto);
             return (addedQuestion == null) ?
@@ -55,22 +51,21 @@ namespace Questions.API.Controllers
                 CreatedAtAction(nameof(GetQuestionAsync), new { id = addedQuestion.Id }, addedQuestion);
         }
 
-
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateQuestionAsync([FromRoute] Guid id,
+        public async Task<ActionResult<QnDto>> UpdateQuestionAsync([FromRoute] Guid id,
             [FromBody] Models.DTO.UpdateQnRequestDto updateQnRequestDto)
         {
             var updatedQuestion = await _questionService.UpdateQuestionAsync(id, updateQnRequestDto);
-            return (updatedQuestion == null) ? NotFound() : Ok(updatedQuestion);
+            return (updatedQuestion == null) ? BadRequest() : Ok(updatedQuestion);
         }
 
         [HttpDelete]
         [Route("{id:guid}")]
-        public async Task<IActionResult> DeleteQuestionAsync(Guid id)
+        public async Task<ActionResult<QnDto>> DeleteQuestionAsync(Guid id)
         {
             var deletedQuestion = await _questionService.DeleteQuestionAsync(id);
-            return (deletedQuestion == null) ? NotFound() : Ok(deletedQuestion);
+            return (deletedQuestion == null) ? BadRequest() : Ok(deletedQuestion);
         }
 
         //question Private Methods

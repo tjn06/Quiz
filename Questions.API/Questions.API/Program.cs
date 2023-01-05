@@ -21,7 +21,7 @@ builder.Services.AddScoped<ITriviaRepository, TriviaRepository>();
 builder.Services.AddScoped<IQuizPlayService, QuizPlayService>();
 builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
-//builder.Services.AddScoped<ValidationService>();
+builder.Services.AddScoped<IValidationService, ValidationService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();

@@ -6,28 +6,18 @@ using Questions.API.Models.DTO;
 
 namespace Questions.API.Services
 {
-	public class ValidationService
-	{
-        internal bool ValidateAddAnswerAsync(
-            ModelStateDictionary ModelState,
-            Models.DTO.AddAnsRequestDto addAnswerRequestDto)
+    public class ValidationService : IValidationService
+    {
+
+        public bool ValidateAddAnswerAsync(
+        ModelStateDictionary ModelState,
+        Models.DTO.AddAnsRequestDto addAnswerRequestDto)
         {
-            if (addAnswerRequestDto == null)
-            {
-                ModelState.AddModelError(nameof(addAnswerRequestDto),
-                    $"Request Data is required.");
-                return false;
-            }
             if (addAnswerRequestDto.QuestionId == Guid.Empty)
             {
                 ModelState.AddModelError(nameof(addAnswerRequestDto.QuestionId),
                     $"QuestionId is required");
                 return false;
-            }
-            if (string.IsNullOrWhiteSpace(addAnswerRequestDto.Answer))
-            {
-                ModelState.AddModelError(nameof(addAnswerRequestDto.Answer),
-                    $"{nameof(addAnswerRequestDto.Answer)} cannot be null, empty or white space");
             }
             if (ModelState.ErrorCount > 0)
             {
@@ -35,6 +25,24 @@ namespace Questions.API.Services
             }
             return true;
         }
+
+        public bool ValidateUpdateAnswerAsync(
+        ModelStateDictionary ModelState,
+        Models.DTO.UpdateAnsRequestDto updateAnsRequestDto)
+        {
+            if (updateAnsRequestDto.QuestionId == Guid.Empty)
+            {
+                ModelState.AddModelError(nameof(updateAnsRequestDto.QuestionId),
+                    $"QuestionId is required");
+                return false;
+            }
+            if (ModelState.ErrorCount > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }
 

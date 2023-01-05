@@ -16,7 +16,7 @@ namespace Questions.API.Repositories
 
         public async Task<Ans> AddAsync(Ans answer)
         {
-            answer.Id = Guid.NewGuid();
+            //answer.Id = Guid.NewGuid();
             await _quizDBContext.Answers.AddAsync(answer);
             await _quizDBContext.SaveChangesAsync();
             return answer;
@@ -55,8 +55,6 @@ namespace Questions.API.Repositories
                 existingAnswer.QuestionId = answer.QuestionId;
                 existingAnswer.Answer = answer.Answer;
                 existingAnswer.IsCorrectAnswer = answer.IsCorrectAnswer;
-
-                // Important if non-appearance, walk not saved to database
                 await _quizDBContext.SaveChangesAsync();
                 return existingAnswer;
             }
