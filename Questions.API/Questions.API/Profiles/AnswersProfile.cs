@@ -9,22 +9,17 @@ namespace Questions.API.Profiles
 	{
 		public AnswersProfile()
 		{
-			CreateMap<Models.Domain.Ans, Models.DTO.AnsDto>()
+			CreateMap<Models.Entities.Ans, Models.DTO.AnsDto>()
 				.ReverseMap();
 
-            CreateMap<Models.Domain.Ans, Models.DTO.AddAnsRequestDto>()
+            CreateMap<Models.Entities.Ans, Models.DTO.AddAnsRequestDto>()
 				.ReverseMap();
 
-            CreateMap<Models.Domain.Ans, Models.DTO.UpdateAnsRequestDto>()
+            CreateMap<Models.Entities.Ans, Models.DTO.UpdateAnsRequestDto>()
                 .ReverseMap();
 
-            CreateMap<Models.Domain.Ans, Models.DTO.AnsPlayQuizDto>()
+            CreateMap<Models.Entities.Ans, Models.DTO.AnsPlayQuizDto>()
 				.ReverseMap();
         }
 	}
 }
-
-//         CreateMap<IEnumerable<Models.Domain.Ans>, List<Models.DTO.AnsPlayQuizDto>>()
-//.ReverseMap();
-
-//CreateMap<Models.Domain.Ans, Models.DTO.AnsDto>();

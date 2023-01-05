@@ -7,16 +7,14 @@ namespace Questions.API.Profiles
 	{
 		public QuestionsProfile()
 		{
-			CreateMap<Models.Domain.Qn, Models.DTO.QnDto>()
+			CreateMap<Models.Entities.Qn, Models.DTO.QnDto>()
 				.ReverseMap();
-            CreateMap<Models.Domain.Qn, Models.DTO.AddQnRequestDto>()
+            CreateMap<Models.Entities.Qn, Models.DTO.AddQnRequestDto>()
 				.ReverseMap();
-            CreateMap<Models.Domain.Qn, Models.DTO.UpdateQnRequestDto>()
+            CreateMap<Models.Entities.Qn, Models.DTO.UpdateQnRequestDto>()
 				.ReverseMap();
-            //.ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id));
-            CreateMap<Models.Domain.Qn, Models.DTO.PlayQuiz.TriviaQnResponseDto>()
+            CreateMap<Models.Entities.Qn, Models.DTO.PlayQuiz.TriviaQnResponseDto>()
 				.ReverseMap();
-
         }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Questions.API.Controllers;
-using Questions.API.Data;
+using Questions.API.Percistanse;
 using Questions.API.Repositories;
 using Questions.API.Services;
 
@@ -19,6 +19,9 @@ builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<ITriviaRepository, TriviaRepository>();
 builder.Services.AddScoped<IQuizPlayService, QuizPlayService>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+//builder.Services.AddScoped<ValidationService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();

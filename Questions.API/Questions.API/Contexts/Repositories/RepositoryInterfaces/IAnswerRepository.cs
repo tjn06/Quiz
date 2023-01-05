@@ -1,5 +1,5 @@
 ﻿using System;
-using Questions.API.Models.Domain;
+using Questions.API.Models.Entities;
 
 namespace Questions.API.Repositories
 {

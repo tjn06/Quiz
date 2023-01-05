@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Questions.API.Models.Domain;
+using Questions.API.Models.Entities;
 
-namespace Questions.API.Data
+namespace Questions.API.Percistanse
 {
 
     public class QuizDBContext : DbContext
@@ -108,8 +108,8 @@ namespace Questions.API.Data
                     }
                 );
             });
-        }
 
+        }
     }
 }
 

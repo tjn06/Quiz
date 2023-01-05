@@ -28,14 +28,11 @@
 
   <ItemGroup>
     <None Remove="Models\" />
-    <None Remove="Models\Domain\" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
-    <None Remove="Data\" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
-    <None Remove="Repositories\" />
     <None Remove="Models\DTO\" />
     <None Remove="AutoMapper" />
     <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
@@ -45,17 +42,24 @@
     <None Remove="Models\DTO\Question\" />
     <None Remove="Models\DTO\PlayQuiz\" />
     <None Remove="Services\IQuizPlayService1cs" />
+    <None Remove="Contexts\" />
+    <None Remove="Contexts\Repositories\" />
+    <None Remove="Services\ServiceIntefaces\" />
+    <None Remove="Clients\" />
+    <None Remove="Clients\Http\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Models\Domain\" />
-    <Folder Include="Data\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Models\DTO\" />
     <Folder Include="Profiles\" />
     <Folder Include="Services\" />
     <Folder Include="Models\DTO\Answer\" />
     <Folder Include="Models\DTO\Question\" />
     <Folder Include="Models\DTO\PlayQuiz\" />
+    <Folder Include="Contexts\" />
+    <Folder Include="Contexts\Repositories\" />
+    <Folder Include="Services\ServiceIntefaces\" />
+    <Folder Include="Clients\" />
+    <Folder Include="Clients\Http\" />
   </ItemGroup>
 </Project>

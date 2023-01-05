@@ -1,5 +1,7 @@
 ﻿using System;
-namespace Questions.API.Models.Domain
+using System.ComponentModel.DataAnnotations;
+
+namespace Questions.API.Models.Entities
 {
 	public class Ans
 	{

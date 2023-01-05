@@ -2,7 +2,7 @@
 using AutoMapper;
 using NuGet.Protocol.Core.Types;
 using Microsoft.EntityFrameworkCore;
-using Questions.API.Models.Domain;
+using Questions.API.Models.Entities;
 using Questions.API.Repositories;
 using Microsoft.AspNetCore.Hosting.Server;
 using Elfie.Serialization;
@@ -67,44 +67,57 @@ namespace Questions.API.Services
         }
 
 
-        public async Task<PlayQuizQuestion> GetPlayQuizQuestion()
+        public async Task<PlayQuizQuestion?> GetPlayQuizQuestion()
         {
-            Random rnd = new Random();
-            bool triviaOrDb = Convert.ToBoolean(rnd.Next(0, 2));
-            var question = new Qn { };
+            //var question = new Qn { };
 
-            if (triviaOrDb)
+            var question = RandomBoolean() ? await GetRandomQuestionFromDb() : await AddAndGetTriviaQuestion();
+
+            //if (RandomBoolean()) {
+            //    question = await GetRandomQuestionFromDb();
+            //}
+            //else {
+            //    question = await AddAndGetTriviaQuestion();
+            //}
+
+            if (question == null)
             {
-                question = await GetRandomQuestionFromDb();
-            }
-            else
-            {
-                question = await AddAndGetTriviaQuestion();
-            }
+                return null;
+            };
 
-            var allAnswersFromDb = await answerRepository.GetAllAsync();
-
-            // Get answers related to question
-            var questionAnswers = from answersFromDb in allAnswersFromDb
-                                  where question.Id == answersFromDb.QuestionId
-                                  select answersFromDb;
-
-            // Dto-mapping, exclude AnswerIsCorrect in answersToClient
-            var answersToClient = mapper.Map<List<Models.DTO.AnsPlayQuizDto>>(questionAnswers);
-
-            // Shuffle answers
-            Random rng = new Random();
-            var shuffledClientAnswers = answersToClient.OrderBy(a => rng.Next()).ToList();
-
+            var shuffledClientAnswers = await GetShuffledQuestionAnswersFromDB(question);
             var playQuizQuestion = CreatePlayQuizQuestion(question, shuffledClientAnswers);
 
             return playQuizQuestion;
         }
 
 
+        public bool RandomBoolean()
+        {
+            Random rnd = new Random();
+            return Convert.ToBoolean(rnd.Next(0, 2));
+        }
+
+        public async Task<List<AnsPlayQuizDto>> GetShuffledQuestionAnswersFromDB(Qn question)
+        {
+            var allAnswersFromDb = await answerRepository.GetAllAsync();
+
+            // Get answers related to question
+            var questionAnswers = from answersFromDb in allAnswersFromDb
+                                  where question.Id == answersFromDb.QuestionId
+                                  select answersFromDb;
+            // Dto-mapping, exclude AnswerIsCorrect in answersToClient
+            var answersToClient = mapper.Map<List<Models.DTO.AnsPlayQuizDto>>(questionAnswers);
+            // Shuffle answers
+            Random rng = new Random();
+
+            return answersToClient.OrderBy(a => rng.Next()).ToList();
+        }
+
+
         public async Task<Qn> GetRandomQuestionFromDb()
         {
-  
+
             Random rng = new Random();
 
             var allPlayQuizQuestions = await questionRepository.GetAllAsync();
@@ -120,12 +133,12 @@ namespace Questions.API.Services
         }
 
 
-        public async Task<Qn> AddAndGetTriviaQuestion()
+        public async Task<Qn?> AddAndGetTriviaQuestion()
         {
             var questionFromTriva = await triviaRepository.GetTriviaQuestion();
             var constructedGuid = CreateGuidFromTriviaString(questionFromTriva.id);
 
-            var triviaQuestionDto = new Models.Domain.Qn()
+            var triviaQuestionEntity = new Models.Entities.Qn()
             {
                 Id = constructedGuid,
                 Language = "English",
@@ -133,19 +146,33 @@ namespace Questions.API.Services
                 Category = questionFromTriva.category,
             };
 
-            if (await CheckIfQuestionExistsInDb(triviaQuestionDto.Id) == false)
+            if (await CheckIfQuestionExistsInDb(triviaQuestionEntity.Id) == false)
             {
-                SaveTriviaQuestion(triviaQuestionDto);
+                SaveTriviaQuestion(triviaQuestionEntity);
 
-                SaveCorrectTriviaAnswers(questionFromTriva, triviaQuestionDto.Id);
+                SaveCorrectTriviaAnswers(questionFromTriva, triviaQuestionEntity.Id);
 
-                questionFromTriva.incorrectAnswers.ForEach(answer => SaveIncorrectTriviaAnswers(answer, triviaQuestionDto.Id));
+                SaveIncorrectTriviaAnswers(questionFromTriva, triviaQuestionEntity);
+
             }
 
-                // Get newly added triviaQuestion from db to verify existense in db
-                return await questionRepository.GetAsync(triviaQuestionDto.Id);
+            // Get newly added triviaQuestion from db to verify existense in db
+            return await questionRepository.GetAsync(triviaQuestionEntity.Id);
         }
 
+
+        public async void SaveIncorrectTriviaAnswers(TriviaQnResponseDto questionFromTriva, Qn triviaQuestionEntity)
+        {
+            //questionFromTriva.incorrectAnswers.ForEach(answer => SaveIncorrectTriviaAnswers(answer, triviaQuestionEntity.Id));
+            foreach (var triviaAnswer in questionFromTriva.incorrectAnswers)
+            {
+                Ans answer = new Ans();
+                answer.Answer = triviaAnswer;
+                answer.IsCorrectAnswer = false;
+                answer.QuestionId = triviaQuestionEntity.Id;
+                await answerRepository.AddAsync(answer);
+            }
+        }
 
         public static Guid CreateGuidFromTriviaString(string triviaId)
         {
@@ -176,21 +203,11 @@ namespace Questions.API.Services
             await questionRepository.AddTriviaQuestionAsync(qn);
         }
 
-
         public async void SaveCorrectTriviaAnswers(TriviaQnResponseDto qn, Guid questionId)
         {
             Ans answer = new Ans();
             answer.Answer = qn.correctAnswer;
             answer.IsCorrectAnswer = true;
-            answer.QuestionId = questionId;
-            await answerRepository.AddAsync(answer);
-        }
-
-        public async void SaveIncorrectTriviaAnswers(string answerStr, Guid questionId)
-        {
-            Ans answer = new Ans();
-            answer.Answer = answerStr;
-            answer.IsCorrectAnswer = false;
             answer.QuestionId = questionId;
             await answerRepository.AddAsync(answer);
         }
@@ -201,7 +218,6 @@ namespace Questions.API.Services
             playQuizQuestion.Id = question.Id;
             playQuizQuestion.Question = question.Question;
             playQuizQuestion.Category = question.Category;
-
             answers.ForEach(answer => playQuizQuestion.Answers.Add(answer));
 
             return playQuizQuestion;
@@ -210,4 +226,34 @@ namespace Questions.API.Services
 
     }
 }
+
+
+//var allAnswersFromDb = await answerRepository.GetAllAsync();
+
+//// Get answers related to question
+//var questionAnswers = from answersFromDb in allAnswersFromDb
+//                      where question.Id == answersFromDb.QuestionId
+//                      select answersFromDb;
+
+//// Dto-mapping, exclude AnswerIsCorrect in answersToClient
+//var answersToClient = mapper.Map<List<Models.DTO.AnsPlayQuizDto>>(questionAnswers);
+
+//// Shuffle answers
+//Random rng = new Random();
+//var shuffledClientAnswers = answersToClient.OrderBy(a => rng.Next()).ToList();
+
+
+
+//public async void SaveIncorrectTriviaAnswers(string answerStr, Guid questionId)
+//{
+//    Ans answer = new Ans();
+//    answer.Answer = answerStr;
+//    answer.IsCorrectAnswer = false;
+//    answer.QuestionId = questionId;
+//    await answerRepository.AddAsync(answer);
+//}
+
+
+
+
 
