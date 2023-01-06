@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 using Questions.API.Models.DTO;
 using Questions.API.Repositories;
 using Questions.API.Services;
+using Swashbuckle.AspNetCore.Annotations;
+
+
 
 namespace Questions.API.Controllers
 {
@@ -28,6 +31,9 @@ namespace Questions.API.Controllers
             _validationService = validationService;
         }
 
+        /// <summary>
+        /// Ass summary here
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AnsDto>>> GetAllAnswersAsync()
         {
@@ -35,6 +41,9 @@ namespace Questions.API.Controllers
             return (allAnswers == null) ? NotFound() : Ok(allAnswers);
         }
 
+        /// <summary>
+        /// Ass summary here
+        /// </summary>
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetAnswerAsync")]
@@ -44,13 +53,12 @@ namespace Questions.API.Controllers
             return (specificAnswer == null) ? NotFound() : Ok(specificAnswer);
         }
 
+        /// <summary>
+        /// Ass summary here
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<AnsDto>> AddAnswerAsync([FromBody] Models.DTO.AddAnsRequestDto addAnswerRequestDto)
         {
-            if (!_validationService.ValidateAddAnswerAsync(ModelState, addAnswerRequestDto))
-            {
-                return BadRequest(ModelState);
-            }
 
             var addedAnswer = await _answerService.AddAnswerAsync(addAnswerRequestDto);
             return (addedAnswer == null) ?
@@ -58,25 +66,36 @@ namespace Questions.API.Controllers
                 CreatedAtAction(nameof(GetAnswerAsync), new { id = addedAnswer.Id }, addedAnswer);
         }
 
+        /// <summary>
+        /// Ass summary here
+        /// </summary>
         [HttpPut]
         [Route("{id:guid}")]
         public async Task<ActionResult<AnsDto>> UpdateAnswerAsync([FromRoute] Guid id,
             [FromBody] Models.DTO.UpdateAnsRequestDto updateAnsRequestDto)
         {
-            if (!_validationService.ValidateUpdateAnswerAsync(ModelState, updateAnsRequestDto))
-            {
-                return BadRequest(ModelState);
-            }
-
             var updatedAnswer = await _answerService.UpdateAnswerAsync(id, updateAnsRequestDto);
             return (updatedAnswer == null) ? NotFound() : Ok(updatedAnswer);
         }
 
-        // DELETE: api/v1/Questions/id
         /// <summary>
-        /// Deletes Question with specified Guid Id.
+        /// Creates a Answer item.
         /// </summary>
-        /// <param name="id"> ID of the question to delete.</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Answer
+        ///     {
+        ///        "id": "",
+        ///        "": "",
+        ///        "": ""
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <returns>A newly created Answer item</returns>
+        /// <response code="201">Returns the deleted item</response>       
+        /// <response code="404">Item to delete not found</response>  
         [HttpDelete]
         [Route("{id:guid}")]
         public async Task<ActionResult<AnsDto>> DeleteAnswerAsync(Guid id)
@@ -89,3 +108,7 @@ namespace Questions.API.Controllers
 }
 
 
+//if (!_validationService.ValidateUpdateAnswerAsync(ModelState, updateAnsRequestDto))
+//{
+//    return BadRequest(ModelState);
+//}

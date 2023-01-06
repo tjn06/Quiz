@@ -6,6 +6,8 @@ using Questions.API.Models.DTO;
 
 namespace Questions.API.Services
 {
+
+    // Code experiment validate requestobject , not in use
     public class ValidationService : IValidationService
     {
 
@@ -33,7 +35,7 @@ namespace Questions.API.Services
             if (updateAnsRequestDto.QuestionId == Guid.Empty)
             {
                 ModelState.AddModelError(nameof(updateAnsRequestDto.QuestionId),
-                    $"QuestionId is required");
+                    $"AnswerId is required");
                 return false;
             }
             if (ModelState.ErrorCount > 0)

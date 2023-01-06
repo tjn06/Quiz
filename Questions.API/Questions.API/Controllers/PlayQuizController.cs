@@ -20,6 +20,9 @@ namespace Questions.API.Controllers
             _quizPlayService = quizPlayService;
         }
 
+        /// <summary>
+        /// Ass summary here
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<PlayQuizQuestion>> GetPlayQuizQuestionAsync()
         {
@@ -27,6 +30,9 @@ namespace Questions.API.Controllers
             return playQuizQuestion == null ?  NotFound() : Ok(playQuizQuestion);
         }
 
+        /// <summary>
+        /// Ass summary here
+        /// </summary>
         [HttpPut]
         [Route("{questionId:guid}")]
         public async Task<ActionResult<string>> CheckAnswerAsync([FromRoute] Guid questionId,
