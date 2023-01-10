@@ -27,8 +27,10 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Get all Question-items
         /// </summary>
+        /// <response code="200">Returns all question</response>       
+        /// <response code="404">Questions was not found</response>  
         [HttpGet]
         public async Task<ActionResult<List<QnDto>>> GetAllQuestionAsync()
         {
@@ -37,8 +39,11 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Get a specific Question-item
         /// </summary>
+        /// <param name="id">Question-ID to get</param>
+        /// <response code="200">Returns the requsted question</response>       
+        /// <response code="404">Question was not found</response>  
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetQuestionAsync")]
@@ -49,76 +54,54 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Add a Question-item
         /// </summary>
+        /// <param name="id">Question-ID to add</param>
+        /// <param name="addAnswerRequestDto">Question-values to add</param>
+        /// <response code="201">Returns the added question</response>       
+        /// <response code="404">Question was not added</response>  
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<QnDto>> AddQuestionAsync(Models.DTO.AddQnRequestDto addQnRequestDto)
         {
-            try
-            {
-                if (addQnRequestDto == null)
-                {
-                    return BadRequest("Update object is null");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
+            var addedQuestion = await _questionService.AddQuestionAsync(addQnRequestDto);
 
-                var addedQuestion = await _questionService.AddQuestionAsync(addQnRequestDto);
-
-                return (addedQuestion == null) ?
-                    NotFound() :
-                    CreatedAtAction(nameof(GetQuestionAsync), new { id = addedQuestion.Id }, addedQuestion);
-            }
-            catch (Exception ex)
-            {
-                //_logger.LogError($"Something went wrong inside the CreateOwner action: {ex}");
-                return StatusCode(500, "Internal server error");
-            }
+            return (addedQuestion == null) ?
+                NotFound() :
+                CreatedAtAction(nameof(GetQuestionAsync), new { id = addedQuestion.Id }, addedQuestion);
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Update a Question-item
         /// </summary>
+        /// <param name="id">Question-ID to update</param>
+        /// <param name="updateQnRequestDto">Question-values to update</param>
+        /// <response code="200">Returns the deleted question</response>       
+        /// <response code="404">Question to update not found</response>  
         [HttpPut]
         [Route("{id:guid}")]
         public async Task<ActionResult<QnDto>> UpdateQuestionAsync([FromRoute] Guid id,
             [FromBody] Models.DTO.UpdateQnRequestDto updateQnRequestDto)
         {
-            try
-            {
-                if (updateQnRequestDto == null)
-                {
-                    return BadRequest("Update object is null");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
- 
-                var updatedQuestion = await _questionService.UpdateQuestionAsync(id, updateQnRequestDto);
-       
-                return (updatedQuestion == null) ?
-                    NotFound() :
-                    CreatedAtAction(nameof(GetQuestionAsync), new { id = updatedQuestion.Id }, updatedQuestion);
-            }
-            catch (Exception ex)
-            {
-                //_logger.LogError($"Something went wrong inside the CreateOwner action: {ex}");
-                return StatusCode(500, "Internal server error");
-            }
+            var updatedQuestion = await _questionService.UpdateQuestionAsync(id, updateQnRequestDto);
+
+            return (updatedQuestion == null) ?
+                NotFound() :
+                Ok(updatedQuestion);
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Delete a Question-item
         /// </summary>
+        /// <param name="id"></param>
+        /// <response code="200">Returns the deleted question</response>       
+        /// <response code="404">Question to delete not found</response>  
         [HttpDelete]
         [Route("{id:guid}")]
         public async Task<ActionResult<QnDto>> DeleteQuestionAsync(Guid id)
         {
             var deletedQuestion = await _questionService.DeleteQuestionAsync(id);
-            return (deletedQuestion == null) ? BadRequest() : Ok(deletedQuestion);
+            return (deletedQuestion == null) ? BadRequest() : Accepted(deletedQuestion);
         }
     }
 

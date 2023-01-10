@@ -17,7 +17,7 @@ namespace Questions.API.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
-            modelBuilder.Entity("Questions.API.Models.Domain.Ans", b =>
+            modelBuilder.Entity("Questions.API.Models.Entities.Ans", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,60 +39,58 @@ namespace Questions.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4a424e1e-9c30-4b29-a4d9-5d7a55b8845c"),
+                            Id = new Guid("a229f15f-8302-4465-90b8-5c2ff72c0895"),
                             Answer = "Maradona",
                             IsCorrectAnswer = false,
-                            QuestionId = new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a")
+                            QuestionId = new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885")
                         },
                         new
                         {
-                            Id = new Guid("ed5487ea-3b4b-41a9-9166-ee6dee5f5672"),
+                            Id = new Guid("65111773-3cd7-4e03-8fed-29f7325bbff0"),
                             Answer = "Pele",
                             IsCorrectAnswer = false,
-                            QuestionId = new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a")
+                            QuestionId = new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885")
                         },
                         new
                         {
-                            Id = new Guid("576e5796-b434-431d-af29-0b905f0c6fe4"),
+                            Id = new Guid("c5e9ff3e-e788-4ddf-bea8-f574060300aa"),
                             Answer = "Messi",
                             IsCorrectAnswer = true,
-                            QuestionId = new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a")
+                            QuestionId = new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885")
                         },
                         new
                         {
-                            Id = new Guid("909d1c9e-1203-4f72-a10f-0bfb9bf6dd09"),
+                            Id = new Guid("7605b90e-42bc-4221-961a-58c173d64d80"),
                             Answer = "Avatar",
                             IsCorrectAnswer = true,
-                            QuestionId = new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1")
+                            QuestionId = new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b")
                         },
                         new
                         {
-                            Id = new Guid("1c3f178e-8fab-4d63-9cc8-f50438dd260c"),
+                            Id = new Guid("4badef91-777f-4134-957b-6cddfc3c7b65"),
                             Answer = "Titanic",
                             IsCorrectAnswer = true,
-                            QuestionId = new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1")
+                            QuestionId = new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b")
                         },
                         new
                         {
-                            Id = new Guid("3d7ca991-6e2a-43b6-ae10-c0e37dc1c803"),
+                            Id = new Guid("44a4f422-54f5-4f60-860e-78b587d6056f"),
                             Answer = "Lionking",
                             IsCorrectAnswer = true,
-                            QuestionId = new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1")
+                            QuestionId = new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b")
                         });
                 });
 
-            modelBuilder.Entity("Questions.API.Models.Domain.Qn", b =>
+            modelBuilder.Entity("Questions.API.Models.Entities.Qn", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Language")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Question")
@@ -106,14 +104,14 @@ namespace Questions.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a"),
+                            Id = new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885"),
                             Category = "Sport",
                             Language = "Svenska",
                             Question = "Best forballplayer?"
                         },
                         new
                         {
-                            Id = new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1"),
+                            Id = new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b"),
                             Category = "Movies",
                             Language = "Eng",
                             Question = "Best movie?"

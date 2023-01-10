@@ -32,9 +32,9 @@ namespace Questions.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Language = table.Column<string>(type: "TEXT", nullable: false),
+                    Language = table.Column<string>(type: "TEXT", nullable: true),
                     Question = table.Column<string>(type: "TEXT", nullable: false),
-                    Category = table.Column<string>(type: "TEXT", nullable: false)
+                    Category = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,12 +46,12 @@ namespace Questions.API.Migrations
                 columns: new[] { "Id", "Answer", "IsCorrectAnswer", "QuestionId" },
                 values: new object[,]
                 {
-                    { new Guid("1c3f178e-8fab-4d63-9cc8-f50438dd260c"), "Titanic", true, new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1") },
-                    { new Guid("3d7ca991-6e2a-43b6-ae10-c0e37dc1c803"), "Lionking", true, new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1") },
-                    { new Guid("4a424e1e-9c30-4b29-a4d9-5d7a55b8845c"), "Maradona", false, new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a") },
-                    { new Guid("576e5796-b434-431d-af29-0b905f0c6fe4"), "Messi", true, new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a") },
-                    { new Guid("909d1c9e-1203-4f72-a10f-0bfb9bf6dd09"), "Avatar", true, new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1") },
-                    { new Guid("ed5487ea-3b4b-41a9-9166-ee6dee5f5672"), "Pele", false, new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a") }
+                    { new Guid("44a4f422-54f5-4f60-860e-78b587d6056f"), "Lionking", true, new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b") },
+                    { new Guid("4badef91-777f-4134-957b-6cddfc3c7b65"), "Titanic", true, new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b") },
+                    { new Guid("65111773-3cd7-4e03-8fed-29f7325bbff0"), "Pele", false, new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885") },
+                    { new Guid("7605b90e-42bc-4221-961a-58c173d64d80"), "Avatar", true, new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b") },
+                    { new Guid("a229f15f-8302-4465-90b8-5c2ff72c0895"), "Maradona", false, new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885") },
+                    { new Guid("c5e9ff3e-e788-4ddf-bea8-f574060300aa"), "Messi", true, new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885") }
                 });
 
             migrationBuilder.InsertData(
@@ -59,8 +59,8 @@ namespace Questions.API.Migrations
                 columns: new[] { "Id", "Category", "Language", "Question" },
                 values: new object[,]
                 {
-                    { new Guid("0f36ca1e-ec85-47e9-a44a-cfe925411db1"), "Movies", "Eng", "Best movie?" },
-                    { new Guid("a52d0157-1069-4f56-a5d5-372fcb10fa3a"), "Sport", "Svenska", "Best forballplayer?" }
+                    { new Guid("5bb1afca-a1a7-4cf8-8130-1926a935d95b"), "Movies", "Eng", "Best movie?" },
+                    { new Guid("d8a36fe1-35d2-49ef-b0f2-94922e14a885"), "Sport", "Svenska", "Best forballplayer?" }
                 });
         }
 

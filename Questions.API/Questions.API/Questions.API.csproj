@@ -13,6 +13,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;IL2121;1591</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
@@ -30,6 +34,7 @@
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +59,8 @@
     <None Remove="Clients\" />
     <None Remove="Clients\Http\" />
     <None Remove="Swashbuckle.AspNetCore.Annotations" />
+    <None Remove="Configurations\" />
+    <None Remove="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -68,5 +75,6 @@
     <Folder Include="Services\ServiceIntefaces\" />
     <Folder Include="Clients\" />
     <Folder Include="Clients\Http\" />
+    <Folder Include="Configurations\" />
   </ItemGroup>
 </Project>

@@ -10,14 +10,13 @@ namespace Questions.API.Models.DTO
         [Required]
         public Guid QuestionId { get; set; }
         [Required]
-        public string Answer { get; set; }
+        public string? Answer { get; set; }
         [Required]
         public bool IsCorrectAnswer { get; set; }
 
-        // Validation
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         //{
-        //    if (item == "" )
+        //    if (item == "")
         //    {
         //        yield return new ValidationResult("Item is invalid", new[] { "ItemId" });
         //    }

@@ -32,8 +32,10 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Get all Answer-items
         /// </summary>
+        /// <response code="200">Returns all answers</response>       
+        /// <response code="404">Answers was not found</response>  
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AnsDto>>> GetAllAnswersAsync()
         {
@@ -42,8 +44,11 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Get a specific Answer-item
         /// </summary>
+        /// <param name="id">Answer-ID to get</param>
+        /// <response code="200">Returns the requsted answer</response>       
+        /// <response code="404">Answer was not found</response>  
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetAnswerAsync")]
@@ -54,12 +59,16 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Add an Answer-item
         /// </summary>
+        /// <param name="id">Answer-ID to add</param>
+        /// <param name="addAnswerRequestDto">Answer-values to add</param>
+        /// <response code="201">Returns the added answer</response>       
+        /// <response code="404">Answer was not added</response>  
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AnsDto>> AddAnswerAsync([FromBody] Models.DTO.AddAnsRequestDto addAnswerRequestDto)
         {
-
             var addedAnswer = await _answerService.AddAnswerAsync(addAnswerRequestDto);
             return (addedAnswer == null) ?
                 NotFound() :
@@ -67,8 +76,12 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Update an Answer-item
         /// </summary>
+        /// <param name="id">Answer-ID to update</param>
+        /// <param name="updateAnsRequestDto">Answer-values to update</param>
+        /// <response code="200">Returns the deleted answer</response>       
+        /// <response code="404">Answer to update not found</response>  
         [HttpPut]
         [Route("{id:guid}")]
         public async Task<ActionResult<AnsDto>> UpdateAnswerAsync([FromRoute] Guid id,
@@ -79,23 +92,11 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Creates a Answer item.
+        /// Delete an Answer-item
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Answer
-        ///     {
-        ///        "id": "",
-        ///        "": "",
-        ///        "": ""
-        ///     }
-        ///
-        /// </remarks>
         /// <param name="id"></param>
-        /// <returns>A newly created Answer item</returns>
-        /// <response code="201">Returns the deleted item</response>       
-        /// <response code="404">Item to delete not found</response>  
+        /// <response code="200">Returns the deleted answer</response>       
+        /// <response code="404">Answer to delete not found</response>  
         [HttpDelete]
         [Route("{id:guid}")]
         public async Task<ActionResult<AnsDto>> DeleteAnswerAsync(Guid id)

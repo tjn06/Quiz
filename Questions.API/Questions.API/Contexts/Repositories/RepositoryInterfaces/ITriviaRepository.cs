@@ -4,6 +4,6 @@ namespace Questions.API.Repositories
 {
     public interface ITriviaRepository
     {
-        Task<TriviaQnResponseDto> GetTriviaQuestion();
+        Task<TriviaQnResponseDto?> GetTriviaQuestion();
     }
 }

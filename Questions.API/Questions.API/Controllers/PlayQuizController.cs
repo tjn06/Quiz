@@ -21,8 +21,10 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Get a random question with answers, use the answer-id:s to answer the question
         /// </summary>
+        /// <response code="200">Returns a question with belonging answers</response>       
+        /// <response code="404">No question was provided</response>  
         [HttpGet]
         public async Task<ActionResult<PlayQuizQuestion>> GetPlayQuizQuestionAsync()
         {
@@ -31,8 +33,9 @@ namespace Questions.API.Controllers
         }
 
         /// <summary>
-        /// Ass summary here
+        /// Add a question-ID and an answer-ID related to the question to check answer
         /// </summary>
+        /// <response code="200">Returns answer is correct/incorrect or question/answer-id is found/not found or question-answer is not related</response>
         [HttpPut]
         [Route("{questionId:guid}")]
         public async Task<ActionResult<string>> CheckAnswerAsync([FromRoute] Guid questionId,

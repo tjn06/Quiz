@@ -16,7 +16,7 @@ namespace Questions.API.Models.DTO
         // Validation
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Language != "English" || Language != "Swedish")
+            if (Language != "English" && Language != "Swedish")
             {
                 yield return new ValidationResult("Language must be in English or Swedish", new[] { "Language string" });
             }

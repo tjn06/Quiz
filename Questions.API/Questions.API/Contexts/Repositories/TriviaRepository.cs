@@ -7,7 +7,7 @@ namespace Questions.API.Repositories
     public class TriviaRepository : ITriviaRepository
     {
 
-        public async Task<TriviaQnResponseDto> GetTriviaQuestion()
+        public async Task<TriviaQnResponseDto?> GetTriviaQuestion()
         {
             try
             {
@@ -21,7 +21,13 @@ namespace Questions.API.Repositories
 
                 var question = await JsonSerializer.DeserializeAsync<List<TriviaQnResponseDto>>(stream);
 
-                return question[0];
+                if (question == null)
+                {
+                    return null;
+                }
+
+                var questionOnFirstIndex = question[0];
+                return questionOnFirstIndex;
 
             }
             catch (Exception ex)
