@@ -37,6 +37,9 @@ namespace Questions.API.Controllers
         /// <response code="200">Returns all answers</response>       
         /// <response code="404">Answers was not found</response>  
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<AnsDto>>> GetAllAnswersAsync()
         {
             var allAnswers = await _answerService.GetAllAnswersAsync();
@@ -52,6 +55,9 @@ namespace Questions.API.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetAnswerAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
         public async Task<ActionResult<AnsDto>> GetAnswerAsync(Guid id)
         {
             var specificAnswer = await _answerService.GetAnswerAsync(id);
@@ -61,12 +67,13 @@ namespace Questions.API.Controllers
         /// <summary>
         /// Add an Answer-item
         /// </summary>
-        /// <param name="id">Answer-ID to add</param>
         /// <param name="addAnswerRequestDto">Answer-values to add</param>
         /// <response code="201">Returns the added answer</response>       
         /// <response code="404">Answer was not added</response>  
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Produces("application/json")]
         public async Task<ActionResult<AnsDto>> AddAnswerAsync([FromBody] Models.DTO.AddAnsRequestDto addAnswerRequestDto)
         {
             var addedAnswer = await _answerService.AddAnswerAsync(addAnswerRequestDto);
@@ -84,6 +91,9 @@ namespace Questions.API.Controllers
         /// <response code="404">Answer to update not found</response>  
         [HttpPut]
         [Route("{id:guid}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<AnsDto>> UpdateAnswerAsync([FromRoute] Guid id,
             [FromBody] Models.DTO.UpdateAnsRequestDto updateAnsRequestDto)
         {
@@ -99,6 +109,9 @@ namespace Questions.API.Controllers
         /// <response code="404">Answer to delete not found</response>  
         [HttpDelete]
         [Route("{id:guid}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<AnsDto>> DeleteAnswerAsync(Guid id)
         {
             var deletedAnswer = await _answerService.DeleteAnswerAsync(id);
@@ -108,6 +121,7 @@ namespace Questions.API.Controllers
     }
 }
 
+// Experimental, not in use
 
 //if (!_validationService.ValidateUpdateAnswerAsync(ModelState, updateAnsRequestDto))
 //{

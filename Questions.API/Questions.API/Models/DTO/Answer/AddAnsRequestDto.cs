@@ -12,18 +12,13 @@ namespace Questions.API.Models.DTO
         [Required]
         public bool IsCorrectAnswer { get; set; }
 
-     
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         //{
         //    //if (item == "")
         //    //{
         //    //    yield return new ValidationResult("Item is invalid", new[] { "ItemId" });
         //    //}
-        //    if (QuestionId == null) {
-        //        yield return new ValidationResult("Wq", new[] { "QuestionId" });
-        //    }
         //}
-
     }
 }
 

@@ -51,44 +51,25 @@ namespace Questions.API.Configurations
 
         static OpenApiInfo V1 => new OpenApiInfo
         {
-            Title = "ITHS - V1",
+            Title = "ITHS QUIZ - V1",
             Version = "v1",
-            Description = "Here we go v1 of the api",
-            TermsOfService = new Uri("http://toSomewhere.com"),
+            Description = "This API provides comprehensive management of questions and answers through CRUD operations, while also offering a quiz experience with dedicated endpoints for retrieving questions, responding to them, and submitting the results for assessment",
+            //TermsOfService = new Uri("http://toSomewhere.com"),
             Contact = ContactIInformation,
-            License = LicenseDescription
         };
 
-
-        static OpenApiLicense LicenseDescription => new OpenApiLicense
-        {
-            Name = "Apache 2.0",
-            Url = new Uri("http://www.apache.org/licenses/LICENSE-2.0.html")
-        };
 
         static OpenApiContact ContactIInformation => new OpenApiContact
         {
-            Name = "Please don't contact me",
-            Email = "example@queenslab.se"
+            Name = "Tobias Johnsson",
+            Email = "tobb-on@hotmail.com"
         };
 
     }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Implement this?
 //public static class SwaggerConfigurationExtension
 //{
 //       public static IServiceCollection AddSwaggerConfigurations(this IServiceCollection service)

@@ -56,8 +56,7 @@ namespace Questions.API.Controllers
         /// <summary>
         /// Add a Question-item
         /// </summary>
-        /// <param name="id">Question-ID to add</param>
-        /// <param name="addAnswerRequestDto">Question-values to add</param>
+        /// <param name="addQnRequestDto">Question-values to add</param>
         /// <response code="201">Returns the added question</response>       
         /// <response code="404">Question was not added</response>  
         [HttpPost]
