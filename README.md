@@ -2,6 +2,7 @@
 1. Clone The project.
 
 2. Initiate the DB
+
 Be sure that you do this in the project folder(where the Program.cs file is located)
 Execute these commands in your terminal. 
 
