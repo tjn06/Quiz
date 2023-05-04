@@ -20,7 +20,7 @@ the Swagger docs will open up in your browser.
 - Copy your guessed answerId and questionId from the response.
 - Open PUT/PlayQuiz/{questionId} -> Try it out
 - Paste questionId into the required questionId-field
-- Pate the answerId into the request-body object like this.
+- Pate the answerId into the request-body object like this:
 
 {
   "answerId": ”insert id here”
