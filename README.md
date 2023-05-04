@@ -21,8 +21,10 @@ the Swagger docs will open up in your browser.
 - Open PUT/PlayQuiz/{questionId} -> Try it out
 - Paste questionId into the required questionId-field
 - Pate the answerId into the request-body object like this.
+
 {
   "answerId": ”insert id here”
 }
+
 - Execute
 - The response tells you if the answer is correct or not.
