@@ -1,30 +1,43 @@
 # Quiz
-1. Clone The project.
 
-2. Initiate the DB
+## 1. Clone the project  
+Clone the repository to your local machine:
 
-Be sure that you do this in the project folder(where the Program.cs file is located)
-Execute these commands in your terminal. 
+`git clone [your-repo-url]`
 
-dotnet ef migrations add InitialCreate
+---
 
+## 2. Initialize the database  
+Make sure you're inside the project folder (where the `Program.cs` file is located).  
+Then run the following commands in your terminal to set up the database:
+
+```
+dotnet ef migrations add InitialCreate  
 dotnet ef database update
+```
 
-3. Start The project
-- If the startup was successful
-the Swagger docs will open up in your browser.
+---
 
-4. Play the quiz in swagger
-- Open up the endpoint PlayQuiz
-- Open GET/PlayQuiz -> Try it out -> Execute
-- Copy your guessed answerId and questionId from the response.
-- Open PUT/PlayQuiz/{questionId} -> Try it out
-- Paste questionId into the required questionId-field
-- Pate the answerId into the request-body object like this:
+## 3. Start the project  
+Start the application using your preferred method (e.g., `dotnet run` or through your IDE).  
+If the startup is successful, the Swagger documentation will automatically open in your browser.
 
+---
+
+## 4. Play the quiz using Swagger
+
+1. Open the `PlayQuiz` endpoint in Swagger.
+2. Go to `GET /PlayQuiz`, click **Try it out**, then **Execute**.
+3. Copy the `answerId` and `questionId` from the response.
+4. Go to `PUT /PlayQuiz/{questionId}`, click **Try it out**.
+   - Paste the `questionId` into the path parameter field.
+   - Paste the `answerId` into the request body like this:
+
+```
 {
-  "answerId": ”insert id here”
+  "answerId": "insert id here"
 }
+```
 
-- Execute
-- The response tells you if the answer is correct or not.
+5. Click **Execute**.  
+6. The response will let you know whether the answer was correct or not.
