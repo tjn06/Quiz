@@ -21,7 +21,6 @@ namespace Questions.API.Services
         private readonly ITriviaRepository triviaRepository;
         private readonly IMapper mapper;
 
-
         public QuizPlayService(IAnswerRepository answerRepository,
             IQuestionRepository questionRepository, ITriviaRepository triviaRepositroy, IMapper mapper)
         {
@@ -80,10 +79,7 @@ namespace Questions.API.Services
             return playQuizQuestion;
         }
 
-
-
-        // Private helper-methods-----------------------------------------------
-
+        // Private helper-methods
         private bool RandomBoolean()
         {
             Random rnd = new Random();
@@ -124,18 +120,15 @@ namespace Questions.API.Services
             return playQuizQuestion;
         }
 
-
         private async Task<Qn?> AddAndGetTriviaQuestion()
         {
             var questionFromTriva = await triviaRepository.GetTriviaQuestion();
-
             if (questionFromTriva != null &&
                 questionFromTriva.id != null &&
                 questionFromTriva.correctAnswer != null &&
                 questionFromTriva.incorrectAnswers != null)
             {
                 var constructedGuid = CreateGuidFromTriviaString(questionFromTriva.id);
-
                 var triviaQuestionEntity = new Models.Entities.Qn()
                 {
                     Id = constructedGuid,
@@ -150,14 +143,12 @@ namespace Questions.API.Services
                     SaveCorrectTriviaAnswers(questionFromTriva.correctAnswer, triviaQuestionEntity.Id);
                     SaveIncorrectTriviaAnswers(questionFromTriva.incorrectAnswers, triviaQuestionEntity.Id);
                 }
-                // Get possibly added triviaQuestion from db to verify existense in db
                 return await questionRepository.GetAsync(triviaQuestionEntity.Id);
             }
 
             return null;
 
         }
-
 
         private async void SaveIncorrectTriviaAnswers(List<string> incorrectAnswers, Guid questionId)
         {

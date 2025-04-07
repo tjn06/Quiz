@@ -44,6 +44,5 @@ namespace Questions.API.Controllers
             var selectedAnswerReply = await _quizPlayService.GetPlayQuizAnswerCorrectionReply(questionId, checkPlayQuizAnsRequest.AnswerId);
             return Ok(selectedAnswerReply);
         }
-
     }
 }

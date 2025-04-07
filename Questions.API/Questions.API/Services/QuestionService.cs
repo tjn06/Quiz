@@ -3,7 +3,6 @@ using AutoMapper;
 using Questions.API.Models.DTO;
 using Questions.API.Repositories;
 
-
 namespace Questions.API.Services
 {
 	public class QuestionService : IQuestionService

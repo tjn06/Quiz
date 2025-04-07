@@ -10,8 +10,6 @@ using Questions.API.Repositories;
 using Questions.API.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-
-
 namespace Questions.API.Controllers
 {
     [Route("api/v1/[controller]")]
@@ -117,7 +115,6 @@ namespace Questions.API.Controllers
             var deletedAnswer = await _answerService.DeleteAnswerAsync(id);
             return (deletedAnswer == null) ? NotFound() : Ok(deletedAnswer);
         }
-
     }
 }
 

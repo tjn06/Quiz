@@ -17,7 +17,5 @@ namespace Questions.API.Configurations
         }
 
 	}
-
-
 }
 

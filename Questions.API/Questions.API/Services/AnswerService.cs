@@ -49,6 +49,5 @@ namespace Questions.API.Services
             var answerDomain = await _answerRepository.DeleteAsync(id);
             return (answerDomain == null) ? null : _mapper.Map<Models.DTO.AnsDto>(answerDomain);
         }
-
     }
 }

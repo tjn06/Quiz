@@ -72,18 +72,18 @@ namespace Questions.API.Configurations
 //Implement this?
 //public static class SwaggerConfigurationExtension
 //{
-//       public static IServiceCollection AddSwaggerConfigurations(this IServiceCollection service)
-//       {
+//    public static IServiceCollection AddSwaggerConfigurations(this IServiceCollection service)
+//    {
 
-//           service.AddEndpointsApiExplorer();
+//        service.AddEndpointsApiExplorer();
 
-//           service.AddApiVersioning(setup =>
-//           {
-//               setup.DefaultApiVersion = new ApiVersion(1, 0);
-//               setup.AssumeDefaultVersionWhenUnspecified = true;
-//               setup.ReportApiVersions = true;
-//           });
-//       }
+//        service.AddApiVersioning(setup =>
+//        {
+//            setup.DefaultApiVersion = new ApiVersion(1, 0);
+//            setup.AssumeDefaultVersionWhenUnspecified = true;
+//            setup.ReportApiVersions = true;
+//        });
+//    }
 //}
 
 

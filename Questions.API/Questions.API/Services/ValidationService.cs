@@ -6,11 +6,8 @@ using Questions.API.Models.DTO;
 
 namespace Questions.API.Services
 {
-
-    // Code experiment validate requestobject , not in use
     public class ValidationService : IValidationService
     {
-
         public bool ValidateAddAnswerAsync(
         ModelStateDictionary ModelState,
         Models.DTO.AddAnsRequestDto addAnswerRequestDto)

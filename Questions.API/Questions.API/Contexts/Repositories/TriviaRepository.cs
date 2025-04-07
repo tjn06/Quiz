@@ -6,7 +6,6 @@ namespace Questions.API.Repositories
 {
     public class TriviaRepository : ITriviaRepository
     {
-
         public async Task<TriviaQnResponseDto?> GetTriviaQuestion()
         {
             try
@@ -35,9 +34,6 @@ namespace Questions.API.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
-
-
     }
 }
 

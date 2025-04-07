@@ -4,7 +4,6 @@ using Questions.API.Models.Entities;
 
 namespace Questions.API.Percistanse
 {
-
     public class QuizDBContext : DbContext
 	{
         readonly Guid question1Id = Guid.NewGuid();
@@ -16,7 +15,6 @@ namespace Questions.API.Percistanse
         readonly Guid answer5Id = Guid.NewGuid();
         readonly Guid answer6Id = Guid.NewGuid();
 
-
         public QuizDBContext(DbContextOptions<QuizDBContext> options): base(options)
 		{
             
@@ -26,12 +24,10 @@ namespace Questions.API.Percistanse
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
             CreateQuestionModel(modelBuilder);
             CreateAnswersModel(modelBuilder);
         }
-
 
         private void CreateQuestionModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +40,6 @@ namespace Questions.API.Percistanse
                         Category = "Sport",
                         Question = "Best forballplayer?",
                         Language = "Svenska"
-
                     },
                     new Qn
                     {
@@ -52,12 +47,10 @@ namespace Questions.API.Percistanse
                         Category = "Movies",
                         Question = "Best movie?",
                         Language = "Eng"
-
                     }
                 );
             });
         }
-
 
         private void CreateAnswersModel(ModelBuilder modelBuilder)
         {
@@ -108,7 +101,6 @@ namespace Questions.API.Percistanse
                     }
                 );
             });
-
         }
     }
 }
